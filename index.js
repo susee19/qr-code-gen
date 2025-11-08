@@ -1,11 +1,13 @@
+
 const input = document.getElementById("userInput");
 const btn = document.getElementById("saveBtn");
-
+const qrContainer = document.getElementById("qrcode");
 btn.addEventListener("click", function() {
-  const value = input.value;
-  localStorage.setItem("savedValue", value);
-  alert("Saved: " + value);
+  const value = input.value.trim();
+  if (value === "") {
+    alert("Please type something!");
+    return;
+  }
+ qrContainer.innerHTML = "";
+ new QRCode(qrContainer, value);
 });
-var qr = require('qr-image');
-var qr_svg = qr.image(value);
-qr_svg.pipe(require('fs').createWriteStream('qr.png'));
